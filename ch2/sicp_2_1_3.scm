@@ -27,6 +27,17 @@
 ;(car (cons 3 2))    ; 3
 ;(cdr (cons 3 2))    ; 2
 
-; 2.6.
 
+; ex 2.6.
+;1=lambda f.lambda x.fx
 
+(define one
+    (lambda (f) (lambda(x) (f x))))
+
+;2=lambda f.lambda x.f(fx)
+
+(define two
+    (lambda (f) (lambda (x) (f (f x)))))
+
+(define (+ m n)
+    (lambda (f) (lambda (x) (f ((m f) ((n f) x))))))
