@@ -21,12 +21,32 @@
 
 ; ex 2.20
 
-(define (same-parity first-value . other-values) 
-    (define (accept-parity? value) 
-        (equal? (even? first-value) (even? value))) 
-    (define (filter-parity values) 
-        (cond ((null? values) null) 
-            ((accept-parity? (car values)) (cons (car values) 
-                (filter-parity (cdr values)))) 
-            (else (filter-parity (cdr values))))) 
-    (cons first-value (filter-parity other-values)))
+(define (same-parity x . z)
+    (define (iter source target)
+        (if (null? source)
+            (reverse target)
+            (let ((sign (remainder x 2))
+                (i (car source))
+                (tail (cdr source)))
+            (if (= sign (remainder i 2))
+                (iter tail (cons i target))
+                (iter tail target)))))
+    (cons x (iter z (list))))
+
+;(same-parity 1 2 3 4 5 6 7)    ;(1 3 5 7)
+
+
+; ex 2.21.
+
+(define nil '())
+
+(define (square-list items)
+    (if (null? items) nil
+        (cons (* (car items) (car items))
+              (square-list (cdr items)))))
+
+(define (square-list2 items)
+    (map square items))
+
+;(square-list (list 2 3 4))     ;(4 9 12)
+;(square-list2 (list 2 3 4))    ;(4 9 12)
