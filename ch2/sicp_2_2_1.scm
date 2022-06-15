@@ -46,7 +46,16 @@
               (square-list (cdr items)))))
 
 (define (square-list2 items)
-    (map square items))
+    (map (lambda (x) (* x x)) items))
 
 ;(square-list (list 2 3 4))     ;(4 9 12)
 ;(square-list2 (list 2 3 4))    ;(4 9 12)
+
+
+; ex 2.23.
+
+(define (for-each proc items)
+    (cond ((not (null? items))
+    (proc (car items)) (for-each proc (cdr items)))))
+
+;(for-each display (list 10 20 30))
