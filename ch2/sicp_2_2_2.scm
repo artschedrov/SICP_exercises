@@ -26,6 +26,7 @@
 
 
 ;2.28
+
 (define (fringe tree)
     (cond ((null? tree) ())
         ((pair? tree) (append (fringe (car tree)) 
@@ -35,3 +36,39 @@
 (define x (list (list 1 2) (list 3 4)))
 
 ;(fringe x)     ; (1 2 3 4)
+
+
+;2.30.
+
+(define nil '())
+
+(define (square-tree tree)
+    (cond ((null? tree) nil)
+          ((not (pair? tree)) (square tree))
+          (else (cons (square-tree (car tree))
+                      (square-tree (cdr tree))))))
+
+(define (square-tree2 tree)
+    (map (lambda (sub-tree) (if (pair? sub-tree) 
+                                (square-tree2 sub-tree) 
+                                (square sub-tree))) 
+            tree))
+
+;(square-tree (list 1 (list 2 (list 3 4) 5) (list 6 7)))
+;(square-tree (list 4 5 6))
+;(square-tree2 (list 4 5 6))
+
+
+;2.31.
+
+(define (tree-map proc tree)
+    (cond ((null? tree) nil)
+          ((not (pair? tree)) (proc tree))
+          (else (cons (tree-map (car tree))
+                      (tree-map (cdr tree))))))
+
+(define (square-tree3 tree) 
+    (tree-map square tree))
+
+;(square-tree (list 1 (list 2 (list 3 4) 5)))
+
