@@ -35,3 +35,16 @@
     (fold-right (lambda (x y) (append y (list x))) nil sequence))
 (define (reverse sequence)
     (fold-left (lambda (x y) (cons y x)) nil sequence))
+
+
+;2.40.
+
+(define (unique-pairs n)
+    (flatmap (lambda (i) (map (lambda (j) (list i j))
+                                (enumerate-interval 1 (- i 1))))
+            (enumerate-interval 1 (- n 1))))
+
+(define (prime-sum-pairs n)
+    (map make-pair-sum
+        (filter prime-sum?
+            (unique-pairs n))))
