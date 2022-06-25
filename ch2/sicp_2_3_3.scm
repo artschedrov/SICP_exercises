@@ -17,3 +17,15 @@
 ;(define test1 '(5 6 3 7))
 
 ;(union-set even test1)
+
+
+; 2.60.
+
+; остальные процедуры остаются не изменными
+; процедуры element-of-set? и intersection-set будут выполнятся с Θ(n) временем, adjoin-set и union-set будут выполняться с Θ(1) временем.
+
+(define (adjoin-set x set)
+    (cons x set))
+
+(define (union-set set1 set2)
+    (append set1 set2))
