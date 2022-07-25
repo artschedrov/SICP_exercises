@@ -44,3 +44,49 @@ global──────►│                                                  
                                                 E6  ────────────────►└──────┘
 
                                                                         1
+
+ITERATE
+                   ┌──────────────────────────────────────────────────────┐
+    global env     │                                                      │
+                   │  fact: *                                             │
+  ────────────────►│  fact-iter: *                                        │
+                   │                                                      │
+                   │                                                      │
+                   └──────────────────────────────────────────────────────┘
+                     ▲     ▲
+                     │     │   var: n                      var:(product counter max-count)
+                     │     │   body: (fact-iter 1 1 n)     body:(if(>counter max-count)
+                     │     │                                        prod
+                     │     │                                        (fact-iter(*counter product)
+                     │     │                                                  (+counter 1)
+                     │     │                                                  max-counter)))
+      (factorial 2)  │     │
+                     │     │
+       ┌─────────┐   │     │
+E1     │         │   │     │
+──────►│  n:2    ├───┘     │
+       │         │         │
+       └─────────┘         │
+         (fact-iter 1 1 n) │        ▲           ▲
+                           │        │           │
+              ┌─────────┐  │        │           │
+       E2     │product:1│  │        │           │
+     ────────►│counter:1├──┘        │           │
+              │max-cou:2│           │           │
+              └─────────┘           │           │
+               (fact-iter 1 2 2)    │           │
+                                    │           │
+                   ┌─────────────┐  │           │
+           E3      │  product:1  │  │           │
+         ──────────►  counter:2  ├──┘           │
+                   │  max-count:2│              │
+                   └─────────────┘              │
+                        (fact-iter 2 3 2)       │
+                                                │
+                             ┌──────────────┐   │
+                             │ product:2    │   │                                
+                             │ counter:3    ├───┘
+                             │ max-count:2  │
+                             │              │
+                             └──────────────┘
+                               2
